@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .c{
+            width: 500px;
+            height: 300px;
+            margin: 30px auto;
+            overflow: hidden;
+        }
+
+        .img-list{
+            width: 2000px;
+            height: 300px;
+            position: relative;
+        }
+
+        .img-list img{
+            width: 500px;
+            height: 300px;
+            float: left;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="c">
+    <div class="img-list" onclick="roll_img()">
+        <img src="img/1.jpg">
+        <img src="img/2.jpg">
+        <img src="img/3.jpg">
+        <img src="img/4.jpg">
+    </div>
+
+
+</div>
+</body>
+    <script type="text/javascript">
+        var width = $(".img-list").innerWidth();
+
+        var x = 0;
+        var rolling = false;
+        var interval_id;
+        function roll_img(){
+            console.log(rolling);
+            if(rolling){
+                rolling = false;
+                $(".img-list").css("left",Number(x)+"px");
+                clearInterval(interval_id);
+                console.log("width:"+width+",x:"+x+",last:"+$("img:last").innerWidth()+",left"+$(".img-list").css("left"));
+            }else {
+                interval_id = setInterval(function () {
+                    x -= 1;
+                    $(".img-list").css("left", Number(x) + "px");
+                    if(width+x==$("img:last").innerWidth()){
+                        $(".img-list").css("left", "0px");
+                        //clearInterval(interval_id);
+                        x = 0;
+                    }
+                }, 1);
+                rolling = true;
+            }
+        }
+
+    </script>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>相对定位实现轮播</title>
+    <script language="JavaScript" src="js/jquery-3.3.1.min.js"></script>
+    <style>
+        body{
+            margin: 0;
+            text-align: center;
+        }
+
+        .top{
+            position: relative;
+            width: 500px;
+            height: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .icon div{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 120px;
+        }
+
+        .icon .left{
+            left: 10px;
+        }
+
+        .icon .right{
+            right: 10px;
+        }
+
+        .top .img-list{
+            width: 2000px;
+            height: 300px;
+            left: 0px;
+            position: relative;
+        }
+
+        .top .img-list  img{
+            width: 500px;
+            float: left;
+        }
+    </style>
+
+</head>
+<body>
+<div class="top">
+    <div id="a" class="img-list">
+        <img src="img/1.jpg" alt=""/>
+        <img src="img/2.jpg" alt=""/>
+        <img src="img/3.jpg" alt=""/>
+        <img src="img/4.jpg" alt=""/>
+
+    </div>
+
+    <div class="icon">
+        <div class="left" onclick="last_Btn()"><img src="img/1.gif" alt=""></div>
+        <div class="right" onclick="next_Btn()"><img src="img/2.gif" alt=""></div>
+    </div>
+
+</div>
+
+</body>
+<script>
+    var length = 0;
+    var width = 0;
+	var isRun  = false;
+
+
+    $(function () {
+        length = $(".img-list img").length;
+        width = $(".img-list img").innerWidth();
+        setInterval(next_Btn,3000);
+    });
+
+    function last_Btn() {
+		if(isRun){
+			return;
+		}
+        isRun = true
+        var x = $("#a").css("left");
+        x = x.replace("px","");
+        console.log(x);
+        if(0 === Number(x)){
+            //$("#a").css("left",(-1) * ((length -1 ) * width) + "px");
+            $("#a").animate({"left": (-1) * ((length -1 ) * width) + "px"}, 500,function () {
+                isRun = false
+            });
+        }else{
+            x= Number(x) + width;//原基础上+500
+            //$("#a").css("left",(x) + "px");
+            $("#a").animate({"left": (x) + "px"}, 500,function () {
+                isRun = false
+            });
+        }
+        console.log(x);
+    }
+
+    function next_Btn() {
+		if(isRun){
+			console.log("动画还没有结束");
+			return;
+		}
+        isRun = true
+        var x = $("#a").css("left");
+        x = x.replace("px","");
+        console.log(x);
+        if((-1) * ((length -1 ) * width) === Number(x)){
+            //$("#a").css("left","0px");
+            $("#a").animate({"left": "0px"}, 500,function () {
+                isRun = false
+            });
+        }else{
+            x= Number(x) - width;//原基础上-500
+            //$("#a").css("left",(x) + "px");
+            $("#a").animate({"left": (x) + "px"}, 500,function () {
+                isRun = false
+            });
+        }
+        console.log(x);
+    }
+
+</script>
+</html>

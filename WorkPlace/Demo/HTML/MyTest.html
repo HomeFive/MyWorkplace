@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .outset {
+            height: 50px;
+        }
+        .flowItem {
+            position: relative;
+            height: 100px;
+            border-radius: 100%;
+            width: 100px;
+            box-shadow: 0px -1px 5px;
+            text-align: center;
+        }
+        .flowItem:hover {
+            margin: 0 0 30px 0;
+            width: 600px;
+            box-shadow: 1px 1px 10px;
+            cursor: cell;
+            border-radius: 90px;
+            text-align: right;
+            transition-duration: 0.01s;
+            transition-timing-function: ease-out;
+        }
+        #i1 {
+            background-color: cadetblue;
+            border:0;
+        }
+        #i2 {
+            background-color: orangered;
+            border:0;
+        }
+        #i3 {
+            background-color: hotpink;
+            border:0;
+        }
+        #i4 {
+            background-color: mediumpurple;
+            border:0;
+        }
+    </style>
+</head>
+<body>
+    <div id="flowItemCollection">
+        <div class="outset">
+            <div class="flowItem" id="i1">abc</div>
+        </div>
+        <div class="outset">
+            <div class="flowItem" id="i2">efg</div>
+        </div>
+        <div class="outset">
+            <div class="flowItem" id="i3">hij</div>
+        </div>
+        <div class="outset">
+            <div class="flowItem" id="i4">klm</div>
+        </div>
+    </div>
+</body>
+</html>

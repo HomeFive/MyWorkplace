@@ -1,0 +1,12 @@
+public class Test07 implements Runnable {
+    public static void main(String[] args) {     
+        Thread t = new Thread(new Test07());
+        t.start();
+    }
+    public void run(int num) {
+        for (int i = 0; i < num; i++) {
+            System.out.println(i);
+        }
+    }
+}
+程序不能通过编译，因为没有重写run方法。

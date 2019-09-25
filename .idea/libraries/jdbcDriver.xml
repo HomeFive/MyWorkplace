@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="jdbcDriver">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/UGO/jdbcDriver" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/UGO/jdbcDriver" recursive="false" />
+  </library>
+</component>
