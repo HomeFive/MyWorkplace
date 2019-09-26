@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <input type="checkbox" id="all">全选/全不选&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="button" id="reverse" value="反选">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </tr>
+    <table>
+        <tr>
+            <td><input type="checkbox" id="i1" class="item"></td>
+            <td>Mary</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" id="i2" class="item"></td>
+            <td>Jack</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox" id="i3" class="item"></td>
+            <td>Rose</td>
+        </tr>
+    </table>
+</body>
+
+<script>
+
+    let all = document.getElementById("all");
+    let items = document.getElementsByClassName("item");
+    //全选
+    all.addEventListener("click",function () {
+        var flag;
+        if(all.checked)
+            flag  = true;
+        else
+            flag = false;
+        for (var i=0;i< items.length; i++){
+            items[i].checked = flag;
+        }
+    });
+    //反选
+    let rev = document.getElementById("reverse");
+    rev.addEventListener("click",function () {
+        for (var i=0;i< items.length; i++){
+            items[i].checked = !(items[i].checked);
+        }
+    });
+    //检查#all的状态
+    function checkAll (item) {
+        //当一个item未选中，#all变为未选中
+        if (all.checked && !item.checked)
+            all.checked = false;
+        //当所有item选中，#all变为选中
+        else {
+            for (var i=0;i< items.length; i++){
+                if (!(items[i].checked))
+                    return;
+            }
+            all.checked = true;
+        }
+    }
+    //每个item绑定事件：检查#all的状态
+    for (var i=0;i< items.length; i++){
+        items[i].checked = false;
+        items[i].addEventListener("click",function () {
+            checkAll(this);
+        });
+    }
+
+</script>
+</html>
