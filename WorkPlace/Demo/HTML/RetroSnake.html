@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>贪吃蛇</title>
-    <script src="../../bootstrap/js/jquery-3.3.1.js"></script>
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
     <style type="text/css">
         *{
             margin: 0;
@@ -52,7 +52,9 @@
             height: 90px;
         }
     </style>
+    <script src="../js/jquery/jquery-3.4.1.js"></script>
 </head>
+
 <body>
     <div>
         <table class="top">
@@ -63,183 +65,184 @@
         </table>
     </div>
 </body>
-    <script type="text/javascript">
-        var row = 11;
-        var column = 21;
-        var snakePoint = new Array();
-        //设点
-        function setPoint(){
-            var x = Math.floor(Math.random()*21);
-            var y = Math.floor(Math.random()*11);
-            return new Array(x,y);
-        }
-        //随机数：0/1/2/3
-        function rand4(){
-            var x = Math.random();
-            if(x>=0.75) return 3;
-            if(x>=0.5) return 2;
-            if(x>=0.25) return 1;
-            return 0;
-        }
-        //点偏移量
-        function offsetVal(direction){
-            var r = rand4();
-            if(r==0 && direction!='w') return new Array(-1,0);
-            else if(r==1 && direction!='e') return new Array(1,0);
-            else if(r==2 && direction!='n') return new Array(0,-1);
-            else if(r==3 && direction!='s') return new Array(0,1);
-            else return offsetVal(direction);
-        }
-        //偏移点
-        function offsetPoint(point,direction){
-            var val = offsetVal(direction);
-            var x = point[0]+val[0];
-            var y = point[1]+val[1];
-            return new Array(x,y);
-        }
-        //修正初始蛇身
-        function checkPoint(point){
-            if(point[0]==-1) point[0]=column-1;
-            if(point[0]==column) point[0]=0;
 
-            if(point[1]==-1) point[1]=row-1;
-            if(point[1]==row) point[1]=0;
-            return point;
-        }
-        //蛇头方向
-        function getDirection(head, body){
-            var hx=head[0];
-            var hy=head[1];
-            var bx=body[0];
-            var by=body[1];
-            if(hy==by){
-                if(hx<bx){
-                    if(hx-bx==1-column){
-                        return 'e';
-                    }else{
-                        return 'w';
-                    }
-                }else{
-                    if(hx-bx==column-1){
-                        return 'w';
-                    }else{
-                        return 'e';
-                    }
-                }
-            }
-            if(hx==bx){
-                if(hy<by){
-                    if(hy-by==1-row){
-                        return 's';
-                    }else{
-                        return 'n';
-                    }
-                }else{
-                    if(hy-by==row-1){
-                        return 'n';
-                    }else{
-                        return 's';
-                    }
-                }
-            }
-        }
-        //初始化蛇
-        function setSnakePoint(){
-            var head = setPoint();
-            var body = checkPoint(offsetPoint(head,''));
-            var tail = checkPoint(offsetPoint(body, getDirection(head, body)));
-            snakePoint.push(head);
-            snakePoint.push(body);
-            snakePoint.push(tail);
-        }
-        //坐标转换成方格
-        function findPoint(point){
-            var x = point[0];
-            var y = point[1];
-            return $("#line"+y).children().get(x);
-        }
-        //预备
-        $(function(){
-            //设置方格
-            var grid = $("#begin");
-            for (var i = 0; i < row; i++) {
-                var ln = String(i);
-                grid.before("<tr class='tr' id='line"+ln+"'><td class='line_end'></td></tr>");
-                var line_head = $("#line"+ln).children(0);
-                for (var j = 0; j < column; j++) {
-                    var lc = String(j);
-                    line_head.before("<td class='td' id='td"+lc+"'></td>");
-                }
-            }
-            //初始化并显示蛇和食物
-            setSnakePoint();
-            setFoodPoint();
-            showPart(snakePoint[1],"head");
-            showPart(snakePoint[2],"body");
-            showPart(snakePoint[3],"tail");
-        });
-        //显示零件
-        function showPart(point,part){
-            var td = findPoint(point);
-            $(td).html("<img src='../img/snake_"+part+".png' height='87' width='87'/>");
-        }
-        //设置食物
-        function setFoodPoint(){
-            var foodPoint = setPoint();
-            checkFoodPoint(foodPoint);
-            var flag = snakePoint.set(0,food);
-            showPart(foodPoint,"food");
-        }
-        //修正食物位置
-        function checkFoodPoint(foodPoint){
-            for (var i=1; i<snakePoint.s1ze; i++){
-                if(snakePoint.get(i)==foodPoint){
-                    setFoodPoint();
-                }
-            }
-        }
-        //清屏
-        function clear(){
-            $("td").html("");
-        }
-        //查重
-        function isRepeated(){
+<script type="text/javascript">
+    var row = 11;
+    var column = 21;
+    var snakePoint = new Array();
+    //设点
+    function setPoint(){
+        var x = Math.floor(Math.random()*21);
+        var y = Math.floor(Math.random()*11);
+        return new Array(x,y);
+    }
+    //随机数：0/1/2/3
+    function rand4(){
+        var x = Math.random();
+        if(x>=0.75) return 3;
+        if(x>=0.5) return 2;
+        if(x>=0.25) return 1;
+        return 0;
+    }
+    //点偏移量
+    function offsetVal(direction){
+        var r = rand4();
+        if(r==0 && direction!='w') return new Array(-1,0);
+        else if(r==1 && direction!='e') return new Array(1,0);
+        else if(r==2 && direction!='n') return new Array(0,-1);
+        else if(r==3 && direction!='s') return new Array(0,1);
+        else return offsetVal(direction);
+    }
+    //偏移点
+    function offsetPoint(point,direction){
+        var val = offsetVal(direction);
+        var x = point[0]+val[0];
+        var y = point[1]+val[1];
+        return new Array(x,y);
+    }
+    //修正初始蛇身
+    function checkPoint(point){
+        if(point[0]==-1) point[0]=column-1;
+        if(point[0]==column) point[0]=0;
 
-        }
-        //方向移动
-        $(document).keyup(function (event) {
-            var keycode = event.which;
-            var head = snakePoint.get(0);
-            var body = snakePoint.get(1);
-            if(keycode=="37" && getDirection(head,body)!='w'){
-                var newhead=checkPoint(new Array(head[0]-1, head[0]));
-                var size = snakePoint.size;
-                for(var i=size-1; i>1; i--){
-                    snakePoint.set(i,snakePoint.get(i-1));
-                    console.log(snakePoint.get(i));
+        if(point[1]==-1) point[1]=row-1;
+        if(point[1]==row) point[1]=0;
+        return point;
+    }
+    //蛇头方向
+    function getDirection(head, body){
+        var hx=head[0];
+        var hy=head[1];
+        var bx=body[0];
+        var by=body[1];
+        if(hy==by){
+            if(hx<bx){
+                if(hx-bx==1-column){
+                    return 'e';
+                }else{
+                    return 'w';
                 }
-                snakePoint.set(1,newhead);
-                clear();
-                showPart(snakePoint.get(1),"head");
-                for (var i = 2; i < size-1; i++) {
-                    showPart(snakePoint.get(i),"body")
+            }else{
+                if(hx-bx==column-1){
+                    return 'w';
+                }else{
+                    return 'e';
                 }
-                showPart(snakePoint.get(size-1),"tail");
-            }
-            if(keycode=="39" && getDirection(head,body)=='e'){
-                head[0]=head[0]+1;
-            }
-            if(keycode=="38" && getDirection(head,body)=='n'){
-                head[1]=head[1]+1;
-            }
-            if(keycode=="40" && getDirection(head,body)=='s'){
-                head[1]=head[1]-1;
-            }
-        });
-        function checkEat(food,head){
-            if(food[0]==head[0] && food[1]==head[1]){
-                var tail = snakePoint.get(snakePoint.size-1)
             }
         }
-    </script>
+        if(hx==bx){
+            if(hy<by){
+                if(hy-by==1-row){
+                    return 's';
+                }else{
+                    return 'n';
+                }
+            }else{
+                if(hy-by==row-1){
+                    return 'n';
+                }else{
+                    return 's';
+                }
+            }
+        }
+    }
+    //初始化蛇
+    function setSnakePoint(){
+        var head = setPoint();
+        var body = checkPoint(offsetPoint(head,''));
+        var tail = checkPoint(offsetPoint(body, getDirection(head, body)));
+        snakePoint.push(head);
+        snakePoint.push(body);
+        snakePoint.push(tail);
+    }
+    //坐标转换成方格
+    function findPoint(point){
+        var x = point[0];
+        var y = point[1];
+        return $("#line"+y).children().get(x);
+    }
+    //预备
+    $(function(){
+        //设置方格
+        var grid = $("#begin");
+        for (var i = 0; i < row; i++) {
+            var ln = String(i);
+            grid.before("<tr class='tr' id='line"+ln+"'><td class='line_end'></td></tr>");
+            var line_head = $("#line"+ln).children(0);
+            for (var j = 0; j < column; j++) {
+                var lc = String(j);
+                line_head.before("<td class='td' id='td"+lc+"'></td>");
+            }
+        }
+        //初始化并显示蛇和食物
+        setSnakePoint();
+        setFoodPoint();
+        showPart(snakePoint[1],"head");
+        showPart(snakePoint[2],"body");
+        showPart(snakePoint[3],"tail");
+    });
+    //显示零件
+    function showPart(point,part){
+        var td = findPoint(point);
+        $(td).html("<img src='../img/snake_"+part+".png' height='87' width='87'/>");
+    }
+    //设置食物
+    function setFoodPoint(){
+        var foodPoint = setPoint();
+        checkFoodPoint(foodPoint);
+        var flag = snakePoint.set(0,food);
+        showPart(foodPoint,"food");
+    }
+    //修正食物位置
+    function checkFoodPoint(foodPoint){
+        for (var i=1; i<snakePoint.s1ze; i++){
+            if(snakePoint.get(i)==foodPoint){
+                setFoodPoint();
+            }
+        }
+    }
+    //清屏
+    function clear(){
+        $("td").html("");
+    }
+    //查重
+    function isRepeated(){
+
+    }
+    //方向移动
+    $(document).keyup(function (event) {
+        var keycode = event.which;
+        var head = snakePoint.get(0);
+        var body = snakePoint.get(1);
+        if(keycode=="37" && getDirection(head,body)!='w'){
+            var newhead=checkPoint(new Array(head[0]-1, head[0]));
+            var size = snakePoint.size;
+            for(var i=size-1; i>1; i--){
+                snakePoint.set(i,snakePoint.get(i-1));
+                console.log(snakePoint.get(i));
+            }
+            snakePoint.set(1,newhead);
+            clear();
+            showPart(snakePoint.get(1),"head");
+            for (var i = 2; i < size-1; i++) {
+                showPart(snakePoint.get(i),"body")
+            }
+            showPart(snakePoint.get(size-1),"tail");
+        }
+        if(keycode=="39" && getDirection(head,body)=='e'){
+            head[0]=head[0]+1;
+        }
+        if(keycode=="38" && getDirection(head,body)=='n'){
+            head[1]=head[1]+1;
+        }
+        if(keycode=="40" && getDirection(head,body)=='s'){
+            head[1]=head[1]-1;
+        }
+    });
+    function checkEat(food,head){
+        if(food[0]==head[0] && food[1]==head[1]){
+            var tail = snakePoint.get(snakePoint.size-1)
+        }
+    }
+</script>
 </html>
