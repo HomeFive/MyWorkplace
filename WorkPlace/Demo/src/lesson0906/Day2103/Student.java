@@ -4,8 +4,4 @@ public class Student {
     public Student() {
         System.out.println("student class in lesson0906.Day2103");
     }
-    static class go{
-        int id;
-    }
-    class ca{}
 }
